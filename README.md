@@ -26,7 +26,8 @@ Standardized structures for neuroimaging data have allowed the development of to
 *note, it is recommended user-specified strings in filenames (e.g., task names, suffixes) do not overlap with strings in filenames as part of the BIDS format (e.g., 'events', 'run', 'bold'), as BIDS filenames are split to navigate and produce files*
 - GLM parameters (for 3dDeconvolve scripts) should be specified or checked in 'BIDS_afniGLM_params.py'
 - Input (which functional datasets, events files, and masks) should be specified in 'BIDS_afniGLM_params.py', in the 'input_dict' format (see BIDS_afniGLM_params.py). For example:
-`input dict = { 
+```
+input dict = { 
   \# first input
   '/BIDS_folder/sub-01/func/sub-01_task-taskname_run-01_bold_preprocfinal.nii.gz': 
     {'eventTSV_path': '/BIDS_folder/sub-01/func/sub-01_task-taskname_run-01_events.tsv', 
@@ -36,8 +37,8 @@ Standardized structures for neuroimaging data have allowed the development of to
     {'eventTSV_path': '/BIDS_folder/sub-01/func/sub-01_task-taskname_run-02_events.tsv', 
     'mask_path': '/BIDS_folder/sub-01/anat/sub-01_task-taskname_brainmask.nii.gz'},
   \# ... you  may include as many as you like!
-               }`
-
+               }
+```
 
 ## To-do
 - motion
