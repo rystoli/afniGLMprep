@@ -1,8 +1,15 @@
+# afniGLMprep version: 11/11/17
+
 #######################################################
 # Set paths
 
-BIDS_path = './'      # set path to BIDS study top directory
-
+# set path to BIDS study top directory
+BIDS_path = './'      
+# if having afniGLMprep automatically generate the input_dict (instead of doing so below), set suffix of functional input files in addition to standards BIDS file name _bold, e.g., 'preprocfinal' if preprocessed input is named, like:
+# sub-01_task-taskname_run-01_bold_preprocfinal.nii.gz
+input_suffix = 'preprocfinal' 
+# set path to mask applied to all subjects if having afniGLMprep automatically generate the input_dict (instead of doing so below)
+mask_path = './union_brain_mask.nii.gz' 
 
 #######################################################
 # Set GLM Parameters - see 3dDeconvolve doc: https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dDeconvolve.html

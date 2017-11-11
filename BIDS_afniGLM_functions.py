@@ -151,3 +151,39 @@ def write_GLM_script_per_task_subj_run( BIDS_path, input_dict, afniGLM_params ):
                           mask_path = etc['mask_path'],
                           afniGLM_params = afniGLM_params )
     return
+
+
+
+
+#######################################################
+# Prepare input
+#######################################################
+
+def prep_alleventTSVs( BIDS_path, input_suffix, mask_path ):
+    '''
+    Prepares 'input_dict' used as input to all prep functions (1Ds, 3dDeconvolve)
+
+    --------------
+    ARGS:
+    BIDS_path = str, glob path to BIDS formatted directory holding all data
+    input_suffix = str, suffix after '_bold_' in functional input filenames, e.g.,
+                'preprocessed' (no need for underscores, file extensions etc).
+                *Leave empty string if no suffix (eg, filename ends in 'bold'
+    mask_path = str, path to single mask to be applied to all subjects 
+    --------------
+    Return: dict, input_dict - see BIDS_afniGLM_params.py for description   
+    '''
+    input_dict = {}
+    # loop all subjects
+    for s in glob.glob(os.path.join(BIDS_path,'sub-*/func/')):
+        # loop all events.tsv files per subject
+        for tsv_path in glob.glob(os.path.join( s, '*events.tsv' )):
+            if input_suffix == '':
+                func_input_path = tsv_path.split('events')[-2] + 'bold.nii.gz'
+            else: 
+                func_input_path = tsv_path.split('events')[-2] + 'bold_' + input_suffix + '.nii.gz'
+            input_dict[func_input_path] = { 'eventTSV_path': tsv_path,
+                                            'mask_path': mask_path }
+    return input_dict
+            
+    
