@@ -67,6 +67,7 @@ python BIDS_afniGLM_run.py prepInput prep1D prepGLM
 - Stimulus onset timing files (1Ds) are placed in a directory 'GLM_1Ds' in the BIDS home folder you specified in BIDS_afniGLM_params.py
 - AFNI 3dDeconvolve scripts are placed in the BIDS home folder specified in BIDS_afniGLM_params.py
 
+Feel free to try it out on public [BIDS example datasets](https://github.com/INCF/BIDS-examples)!
 ## To-do / Limitations
 - Create method and option to include motion estimates in design matrix
 - Create fully flexible 3dDeconvolve script generation, allowing user to add additional parameters
