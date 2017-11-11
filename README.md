@@ -39,8 +39,25 @@ input dict = {
   # ... you  may include as many as you like!
                }
 ```
+*note: currently requires a mask, though this may be the same for all subjects if you want*
 
-## To-do
-- motion
-- analysis run
+## Execution
+Execution is easily done from the command-line. After parameters are set in BIDS_afniGLM_params.py, simply run the 'BIDS_afniGLM_run.py', along with arguments which specify the actions you would like completed. You may enter as many actions as you would like. The options at this time are:
+- 'prep1D': prep AFNI 1D stimulus onset timing files
+- 'prepGLM': prep AFNI 3dDeconvolve scripts
+Example calls:
+```
+python BIDS_afniGLM_run.py prep1D
+python BIDS_afniGLM_run.py prepGLM
+python BIDS_afniGLM_run.py prep1D prepGLM 
+```
 
+## Output
+- Stimulus onset timing files (1Ds) are placed in a directory 'GLM_1Ds' in the BIDS home folder you specified in BIDS_afniGLM_params.py
+- AFNI 3dDeconvolve scripts are placed in the BIDS home folder specified in BIDS_afniGLM_params.py
+
+## To-do / Limitations
+- Create method and option to include motion estimates in design matrix
+- Create fully flexible 3dDeconvolve script generation, allowing user to add additional parameters
+- Create additional forms of 3dDeconvolve, eg, if user prefers more advanced models, or estimates per onset/trial
+- Allow option to begin analyses
