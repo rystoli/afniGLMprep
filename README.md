@@ -28,15 +28,15 @@ Standardized structures for neuroimaging data have allowed the development of to
 - Input (which functional datasets, events files, and masks) should be specified in 'BIDS_afniGLM_params.py', in the 'input_dict' format (see BIDS_afniGLM_params.py). For example:
 ```
 input dict = { 
-  \# first input
+  # first input
   '/BIDS_folder/sub-01/func/sub-01_task-taskname_run-01_bold_preprocfinal.nii.gz': 
     {'eventTSV_path': '/BIDS_folder/sub-01/func/sub-01_task-taskname_run-01_events.tsv', 
     'mask_path': '/BIDS_folder/sub-01/anat/sub-01_task-taskname_brainmask.nii.gz'},
-  \# second input
+  # second input
   '/BIDS_folder/sub-01/func/sub-01_task-taskname_run-02_bold_preprocfinal.nii.gz': 
     {'eventTSV_path': '/BIDS_folder/sub-01/func/sub-01_task-taskname_run-02_events.tsv', 
     'mask_path': '/BIDS_folder/sub-01/anat/sub-01_task-taskname_brainmask.nii.gz'},
-  \# ... you  may include as many as you like!
+  # ... you  may include as many as you like!
                }
 ```
 
