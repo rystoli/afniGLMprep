@@ -4,6 +4,11 @@ afniGLMprep is python code which prepares and runs GLMs on neuroimaging data sto
 ## Purpose
 Standardized structures for neuroimaging data have allowed the development of tools which perform various functions and analyses on data with relative automaticity and ease. The [BIDS (Brain Imaging Data Structure)](http://bids.neuroimaging.io/) has many tools for preprocessing and analysis of data (e.g., [BIDS apps](http://bids-apps.neuroimaging.io/)). Here is an initial set of functions to run first-level analyses via GLM on fMRI data. Specifically, this code automates generation of AFNI files and scripts necessary to estimate whole-brain response patterns to experimental conditions. 
 
+It reduces this large effort to a single line of code:
+```
+python python BIDS_afniGLM_run.py prep1D prepGLM
+```
+
 ## Specific Functions 
 - Generates AFNI 3dDeconvolve scripts per functional dataset specified
 - Generates AFNI 1D stimulus onset timing files for GLM design matrices (input for 3dDeconvolve)
