@@ -32,7 +32,9 @@ python BIDS_afniGLM_run.py prep1D prepGLM
 -- e.g., 'preprocfinal', e.g., '/BIDS_folder/sub-01/func/sub-01_task-taskname_run-01_bold_preprocfinal.nii.gz'
 *note, it is recommended user-specified strings in filenames (e.g., task names, suffixes) do not overlap with strings in filenames as part of the BIDS format (e.g., 'events', 'run', 'bold'), as BIDS filenames are split to navigate and produce files*
 - GLM parameters (for 3dDeconvolve scripts) should be specified or checked in 'BIDS_afniGLM_params.py'
-- Input (which functional datasets, events files, and masks) should be specified in 'BIDS_afniGLM_params.py', in the 'input_dict' format (see BIDS_afniGLM_params.py). For example:
+- Input (which functional datasets, events files, and masks) should be specified in one of two ways:
+1. It may automatically be generated, assuming it is to be created for all '\*event.tsv' files in subject/func/ directories. If this is the case, make sure to specify 'input_prefix' and 'mask_prefix', then include 'prepInput' in arguments for afniGLMprep.py (see below)
+2. Specify in 'BIDS_afniGLM_params.py', in the 'input_dict' format (see BIDS_afniGLM_params.py). For example:
 ```
 input dict = { 
   # first input
@@ -49,7 +51,8 @@ input dict = {
 *note: currently requires a mask, though this may be the same for all subjects if you want*
 
 ## Execution
-Execution is easily done from the command-line. After parameters are set in BIDS_afniGLM_params.py, simply run the 'BIDS_afniGLM_run.py', along with arguments which specify the actions you would like completed. You may enter as many actions as you would like. The options at this time are:
+Execution is easily done from the command-line. After parameters are set in BIDS_afniGLM_params.py, simply run the 'BIDS_afniGLM_run.py', along with arguments which specify the actions you would like completed. You may enter as many actions as you would like, but must at least specify one action command: e.g., 'prep1D' or 'prepGLM'. The options at this time are:
+- 'prepInput': prep input_dict of all functional runs to prepare the GLM for
 - 'prep1D': prep AFNI 1D stimulus onset timing files
 - 'prepGLM': prep AFNI 3dDeconvolve scripts
 Example calls:
@@ -57,6 +60,7 @@ Example calls:
 python BIDS_afniGLM_run.py prep1D
 python BIDS_afniGLM_run.py prepGLM
 python BIDS_afniGLM_run.py prep1D prepGLM 
+python BIDS_afniGLM_run.py prepInput prep1D prepGLM 
 ```
 
 ## Output
@@ -64,7 +68,6 @@ python BIDS_afniGLM_run.py prep1D prepGLM
 - AFNI 3dDeconvolve scripts are placed in the BIDS home folder specified in BIDS_afniGLM_params.py
 
 ## To-do / Limitations
-- More efficient input than input_dict in params
 - Create method and option to include motion estimates in design matrix
 - Create fully flexible 3dDeconvolve script generation, allowing user to add additional parameters
 - Create additional forms of 3dDeconvolve, eg, if user prefers more advanced models, or estimates per onset/trial
