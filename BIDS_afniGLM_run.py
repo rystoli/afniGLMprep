@@ -8,7 +8,7 @@ assert (len(sys.argv) > 1),'Please specify functions. Options: prep1D prepGLM'
 # Create any 1Ds currently missing corresponding to input_dict event TSVs
 if 'prep1D' in sys.argv:
     for inputfile in p.input_dict:
-        afniGLMprep.eventTSV_to_1D( p.BIDS_path, inputfile['eventTSV_path'], p.TR )
+        afniGLMprep.eventTSV_to_1D( p.BIDS_path, p.input_dict[inputfile]['eventTSV_path'], p.TR )
 else: pass
 
 # Creat GLM script per input_dict keys
