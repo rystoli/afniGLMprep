@@ -6,7 +6,7 @@ Standardized structures for neuroimaging data have allowed the development of to
 
 It reduces this large effort to a single line of code:
 ```
-python python BIDS_afniGLM_run.py prep1D prepGLM
+python BIDS_afniGLM_run.py prep1D prepGLM
 ```
 
 ## Specific Functions 
