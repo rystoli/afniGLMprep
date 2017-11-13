@@ -48,7 +48,7 @@ Execution is easily done from the command-line. After parameters are set in afni
 - 'prepInput': prep input_dict of all functional runs to prepare the GLM for
 - 'csvInput': prep input_dict of all functional runs to prepare the GLM for from input CSV
 - 'prep1D': prep AFNI 1D stimulus onset timing files
-- 'prepGLM': prep AFNI 3dDeconvolve scripts
+- 'prepGLM': prep AFNI 3dDeconvolve scripts<br/>
 Example calls:
 ```
 python afniGLMprep_run.py prep1D
