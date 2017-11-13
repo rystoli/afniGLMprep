@@ -8,7 +8,7 @@ In its current form, it gives whole-brain activation patterns per conditions, pe
 
 It reduces this large effort to a single line of code:
 ```
-python afniGLMprep_run.py prep1D prepGLM
+python afniGLMprep_run.py csvInput prep1D prepGLM
 ```
 
 ## Specific Functions 
@@ -48,7 +48,7 @@ Execution is easily done from the command-line. After parameters are set in afni
 - 'prepInput': prep input_dict of all functional runs to prepare the GLM for
 - 'csvInput': prep input_dict of all functional runs to prepare the GLM for from input CSV
 - 'prep1D': prep AFNI 1D stimulus onset timing files
-- 'prepGLM': prep AFNI 3dDeconvolve scripts<br/>
+- 'prepGLM': prep AFNI 3dDeconvolve scripts<br/><br/>
 Example calls:
 ```
 python afniGLMprep_run.py prep1D
