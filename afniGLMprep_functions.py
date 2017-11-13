@@ -1,7 +1,68 @@
+# afniGLMprep version: 11/13/17
 import pandas as pd
 import numpy as np
 import glob
 import os
+
+#######################################################
+# Prepare input
+#######################################################
+
+def prep_csv_to_inputdict( BIDS_path, inputcsv_path ):
+    '''
+    Prepares input_dict from a csv specifying inputs
+
+    --------------
+    ARGS:
+    BIDS_path = str, glob path to BIDS formatted directory holding all data
+    inputcsv_path = csv with input data (see afniGLMprep_params.py)
+                    ...first row is column names, each subsequent row a single inputs
+                    ...various parameters: 'func_input_path', 'eventTSV_path', 'mask_path'
+    --------------                
+    Return: dict, keys: functional input paths, values: dicts, keys: eventTSV_path,
+                        ...mask_path, values: corresponding paths - used as input in 
+                        ...afniGLMprep_run.py
+    '''
+
+    data = pd.read_csv(inputcsv_path,delimiter=',')
+    input_dict = {}
+    for i,func_input_path in enumerate(data['func_input_path']):
+        func_input_path = os.path.join(BIDS_path, func_input_path)
+        eventTSV_path = os.path.join(BIDS_path, data['eventTSV_path'][i])
+        mask_path = os.path.join(BIDS_path, data['eventTSV_path'][i])
+        input_dict[func_input_path] = {'eventTSV_path': eventTSV_path,
+                                       'mask_path': mask_path }
+    return input_dict
+
+###################################
+
+def prep_alleventTSVs( BIDS_path, input_suffix, mask_path ):
+    '''
+    Prepares 'input_dict' used as input to all prep functions (1Ds, 3dDeconvolve)
+
+    --------------
+    ARGS:
+    BIDS_path = str, glob path to BIDS formatted directory holding all data
+    input_suffix = str, suffix after '_bold_' in functional input filenames, e.g.,
+                'preprocessed' (no need for underscores, file extensions etc).
+                *Leave empty string if no suffix (eg, filename ends in 'bold'
+    mask_path = str, path to single mask to be applied to all subjects 
+    --------------
+    Return: dict, input_dict - see afniGLMprep_params.py for description   
+    '''
+    input_dict = {}
+    # loop all subjects
+    for s in glob.glob(os.path.join(BIDS_path,'sub-*/func/')):
+        # loop all events.tsv files per subject
+        for tsv_path in glob.glob(os.path.join( s, '*events.tsv' )):
+            if input_suffix == '':
+                func_input_path = tsv_path.split('events')[-2] + 'bold.nii.gz'
+            else: 
+                func_input_path = tsv_path.split('events')[-2] + 'bold_' + input_suffix + '.nii.gz'
+            input_dict[func_input_path] = { 'eventTSV_path': tsv_path,
+                                            'mask_path': mask_path }
+    return input_dict
+            
 
 #######################################################
 # Create 1D AFNI onset files per task/subject/run/trial_type
@@ -36,7 +97,7 @@ def eventTSV_to_1D( BIDS_path, eventTSV_path, TR ):
         trial_type_onsets_str = np.array([' '.join([str(onset*TR) for onset in trial_type_onsets])])
 
         # write
-        prefix = os.path.join( BIDS_path, './GLM_1Ds', eventTSV_path.split('/')[-1].split('.')[-2]) # define location and prefix for output
+        prefix = os.path.join( BIDS_path, 'GLM_1Ds', eventTSV_path.split('/')[-1].split('.')[-2]) # define location and prefix for output
         np.savetxt('%s_%s.1D' % (prefix,trial_type), trial_type_onsets_str, fmt = '%s')
     return
 
@@ -106,9 +167,10 @@ def write_GLM_script( BIDS_path, func_input_path, eventTSV_path, mask_path, afni
     params = '-polort %s -jobs %s -mask %s  -input %s  -fitts %s -errts %s  -bucket %s -fout -tout  -xjpeg %s  -GOFORIT %s  -nfirst %s  -num_stimts %s' % ( afniGLM_params.polort, afniGLM_params.jobs, mask_path, func_input_path, '%s_fitts.nii.gz' % (input_prefix), '%s_errts.nii.gz' % (input_prefix), '%s_bucket.nii.gz' % (input_prefix), '%s_designmatrix.jpg' % (input_prefix), afniGLM_params.goforit, afniGLM_params.nfirst, len(input_1Ds) )
     
     # combine params and stim_times for final script
+    outpath = os.path.join( BIDS_path, 'GLM_1Ds' )
     glm_script = '3dDeconvolve ' + params + ' ' + ' '.join(stim_times)
     # write script
-    np.savetxt('GLM_%s.sh' % (input_prefix), np.array([glm_script]), fmt = '%s')
+    np.savetxt(os.path.join(outpath,'GLM_%s.sh' % (input_prefix)), np.array([glm_script]), fmt = '%s')
     return
 
 ###################################
@@ -151,39 +213,3 @@ def write_GLM_script_per_task_subj_run( BIDS_path, input_dict, afniGLM_params ):
                           mask_path = etc['mask_path'],
                           afniGLM_params = afniGLM_params )
     return
-
-
-
-
-#######################################################
-# Prepare input
-#######################################################
-
-def prep_alleventTSVs( BIDS_path, input_suffix, mask_path ):
-    '''
-    Prepares 'input_dict' used as input to all prep functions (1Ds, 3dDeconvolve)
-
-    --------------
-    ARGS:
-    BIDS_path = str, glob path to BIDS formatted directory holding all data
-    input_suffix = str, suffix after '_bold_' in functional input filenames, e.g.,
-                'preprocessed' (no need for underscores, file extensions etc).
-                *Leave empty string if no suffix (eg, filename ends in 'bold'
-    mask_path = str, path to single mask to be applied to all subjects 
-    --------------
-    Return: dict, input_dict - see afniGLMprep_params.py for description   
-    '''
-    input_dict = {}
-    # loop all subjects
-    for s in glob.glob(os.path.join(BIDS_path,'sub-*/func/')):
-        # loop all events.tsv files per subject
-        for tsv_path in glob.glob(os.path.join( s, '*events.tsv' )):
-            if input_suffix == '':
-                func_input_path = tsv_path.split('events')[-2] + 'bold.nii.gz'
-            else: 
-                func_input_path = tsv_path.split('events')[-2] + 'bold_' + input_suffix + '.nii.gz'
-            input_dict[func_input_path] = { 'eventTSV_path': tsv_path,
-                                            'mask_path': mask_path }
-    return input_dict
-            
-    

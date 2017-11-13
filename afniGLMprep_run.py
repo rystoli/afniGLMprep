@@ -1,19 +1,40 @@
-# afniGLMprep version: 11/11/17
+# afniGLMprep version: 11/13/17
 
 import sys
 sys.dont_write_bytecode = True
 import afniGLMprep_functions as apf
 import afniGLMprep_params as p
 
-print('Input options: prepInput, prep1D, prepGLM')
+###########################################################
+# Confirm commands entered correctly
+###########################################################
+
+print('Input options: prepInput, csvInput, prep1D, prepGLM')
+print('User input: %s' % (sys.argv[1:]) )
 
 assert ('prep1D' in sys.argv) or ('prepGLM' in sys.argv),'Please specify functions. Options: prep1D prepGLM'
+
+assert ('prepInput' in sys.argv) ^ ('csvInput' in sys.argv),'Please only specify one input source: prepInput (automatic loading, see doc), or csvInput (load input from afniGLMprep_input.csv'
+
+###########################################################
+# Prepare input
+###########################################################
 
 # Automatically generate input_dicts
 if 'prepInput' in sys.argv:
     p.input_dict = apf.prep_alleventTSVs( p.BIDS_path, p.input_suffix, p.mask_path )
     print('%s inputs automatically prepared' % (len(p.input_dict)))
 else: pass
+
+if 'csvInput' in sys.argv:
+    p.input_dict = apf.prep_csv_to_inputdict( p.BIDS_path, p.inputcsv_path)
+    print('%s inputs loaded from afniGLMprep_input.csv' % (len(p.input_dict)))
+else: pass
+
+
+###########################################################
+# Prepare GLM materials
+###########################################################
 
 # Create any 1Ds currently missing corresponding to input_dict event TSVs
 if 'prep1D' in sys.argv:
@@ -30,5 +51,6 @@ if 'prepGLM' in sys.argv:
     print('GLM (3dDeconvolve) scripts prepared in BIDS directory')
 else: pass
 
+###########################################################
 
-print('afniGLMprep completed, with actions: %s' % (sys.argv[1:]) )
+print('afniGLMprep completed')
