@@ -36,11 +36,10 @@ python afniGLMprep_run.py prep1D prepGLM
 - GLM parameters (for 3dDeconvolve scripts) should be specified or checked in 'afniGLMprep_params.py'
 - Input (which functional datasets, events files, and masks) should be specified in one of two ways:
 1. It may automatically be generated, assuming it is to be created for all '\*event.tsv' files in subject/func/ directories. If this is the case, make sure to specify 'input_suffix' and 'mask_path', then include 'prepInput' in arguments for afniGLMprep_run.py (see below)
-2. Specify in 'afniGLMprep_input.csv' (see example 'afniGLMprep_input.csv; specify input.csv path in afniGLMprep_params.py). Each row is specifications to prep a GLM for one functional data input file, with its corresponding stimulus onset timings and mask. You must have columns and specifying:
-
-&nbsp;&nbsp;&nbsp;&nbsp;• 'func_input_path': path to functional input data files
-&nbsp;&nbsp;&nbsp;&nbsp;• 'eventTSV_path': path to functional input data files
-&nbsp;&nbsp;&nbsp;&nbsp;• 'mask_path': path to functional input data files
+2. Specify in 'afniGLMprep_input.csv' (see example 'afniGLMprep_input.csv; specify input.csv path in afniGLMprep_params.py). Each row is specifications to prep a GLM for one functional data input file, with its corresponding stimulus onset timings and mask. You must have columns and specifying:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;• 'func_input_path': path to functional input data files<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;• 'eventTSV_path': path to functional input data files<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;• 'mask_path': path to functional input data files<br/>
 *note: currently requires a mask, though this may be the same for all subjects if you want*
 *note: many strings (paths,input files,strings in TSVs etc) are used to determine paths for afniGLMprep to function, so make sure to use plain-text, and avoid characters that my confuse filepaths, such as slashes (/,\), special characters etc.*
 
