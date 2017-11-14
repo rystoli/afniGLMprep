@@ -29,7 +29,7 @@ def prep_csv_to_inputdict( BIDS_path, inputcsv_path ):
     for i,func_input_path in enumerate(data['func_input_path']):
         func_input_path = os.path.join(BIDS_path, func_input_path)
         eventTSV_path = os.path.join(BIDS_path, data['eventTSV_path'][i])
-        mask_path = os.path.join(BIDS_path, data['eventTSV_path'][i])
+        mask_path = os.path.join(BIDS_path, data['mask_path'][i])
         input_dict[func_input_path] = {'eventTSV_path': eventTSV_path,
                                        'mask_path': mask_path }
     return input_dict
