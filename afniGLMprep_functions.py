@@ -155,8 +155,9 @@ def write_GLM_script( BIDS_path, func_input_path, eventTSV_path, mask_path, afni
     '''    
 
     input_prefix = eventTSV_path.split('/')[-1][:-11]
+    glmout_prefix = '/'.join(eventTSV_path.split('/')[:-1] + [eventTSV_path.split('/')[-1][:-11]])
     input_1Ds = glob.glob(os.path.join(BIDS_path, 'GLM_1Ds' , '%s*1D' % (input_prefix)))
-    
+
     # create stim times inputs
     stim_times = []
     for i,input1D in enumerate(input_1Ds):
@@ -164,7 +165,7 @@ def write_GLM_script( BIDS_path, func_input_path, eventTSV_path, mask_path, afni
         stim_times.append( "-stim_times %s %s '%s' -stim_label %s %s -iresp %s %s" % (i,input1D,afniGLM_params.hrf_func,i,trial_type,i,'iresp_%s_%s.nii.gz' % (input_prefix,trial_type)) )
    
     # create function call + params set 
-    params = '-polort %s -jobs %s -mask %s  -input %s  -fitts %s -errts %s  -bucket %s -fout -tout  -xjpeg %s  -GOFORIT %s  -nfirst %s  -num_stimts %s' % ( afniGLM_params.polort, afniGLM_params.jobs, mask_path, func_input_path, '%s_fitts.nii.gz' % (input_prefix), '%s_errts.nii.gz' % (input_prefix), '%s_bucket.nii.gz' % (input_prefix), '%s_designmatrix.jpg' % (input_prefix), afniGLM_params.goforit, afniGLM_params.nfirst, len(input_1Ds) )
+    params = '-polort %s -jobs %s -mask %s  -input %s  -fitts %s -errts %s  -bucket %s -fout -tout  -xjpeg %s  -GOFORIT %s  -nfirst %s  -num_stimts %s' % ( afniGLM_params.polort, afniGLM_params.jobs, mask_path, func_input_path, '%s_fitts.nii.gz' % (glmout_prefix), '%s_errts.nii.gz' % (glmout_prefix), '%s_bucket.nii.gz' % (glmout_prefix), '%s_designmatrix.jpg' % (glmout_prefix), afniGLM_params.goforit, afniGLM_params.nfirst, len(input_1Ds) )
     
     # combine params and stim_times for final script
     outpath = os.path.join( BIDS_path, 'GLM_1Ds' )
