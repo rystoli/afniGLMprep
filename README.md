@@ -12,15 +12,15 @@ python afniGLMprep_run.py csvInput prep1D prepGLM
 ```
 
 ## Specific Functions 
-- Generates AFNI 3dDeconvolve scripts per functional dataset specified
-- Generates AFNI 1D stimulus onset timing files for GLM design matrices (input for 3dDeconvolve)
-- Generates AFNI 1D nuisance regressors of no interest (motion, global signal, white matter)
+* Generates AFNI 3dDeconvolve scripts per functional dataset specified
+* Generates AFNI 1D stimulus onset timing files for GLM design matrices (input for 3dDeconvolve)
+* Generates AFNI 1D nuisance regressors of no interest (motion, global signal, white matter)
 
 ## Requirements
-- Uses several scientific python libraries (pandas, numpy)
-- Data must be stored in the BIDS format. All functions require very specific directory structures and file names.
-- Stimulus onset timing files (1Ds) are made from BIDS formatted \*events.tsv files
-- If you intend to use them, nuisance regressors (e.g., motion parameters) must be in \*confounds.tsv files (see below)
+* Uses several scientific python libraries (pandas, numpy)
+* Data must be stored in the BIDS format. All functions require very specific directory structures and file names.
+* Stimulus onset timing files (1Ds) are made from BIDS formatted \*events.tsv files
+* If you intend to use them, nuisance regressors (e.g., motion parameters) must be in \*confounds.tsv files (see below)
 
 ## Content
 - afniGLMprep_run.py: command-line script to execute functions (see instructions below)
