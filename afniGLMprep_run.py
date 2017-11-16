@@ -1,4 +1,4 @@
-# afniGLMprep version: 11/13/17
+# afniGLMprep version: 11/16/17
 
 import sys
 sys.dont_write_bytecode = True
@@ -27,8 +27,11 @@ if 'prepInput' in sys.argv:
 else: pass
 
 if 'csvInput' in sys.argv:
-    p.input_dict = apf.prep_csv_to_inputdict( p.BIDS_path, p.inputcsv_path)
+    p.input_dict,p.regressOut = apf.prep_csv_to_inputdict( p.BIDS_path, p.inputcsv_path)
     print('%s inputs loaded from afniGLMprep_input.csv' % (len(p.input_dict)))
+    if p.regressOut:
+        print('Nuisance regressors will be added to your model.')
+    else: pass
 else: pass
 
 
@@ -41,6 +44,11 @@ if 'prep1D' in sys.argv:
     for inputfile in p.input_dict:
         apf.eventTSV_to_1D( p.BIDS_path, p.input_dict[inputfile]['eventTSV_path'], p.TR )
     print('Condition onset timing files (1Ds) prepared in /GLM_1Ds')
+    if p.regressOut:
+        for inputfile in p.input_dict:
+            apf.confoundsTSV_to_1D( p.BIDS_path, p.input_dict[inputfile]['confoundsTSV_path'] )
+        print('Confound timecourse files (1Ds) prepared in /GLM_1Ds')
+    else: pass        
 else: pass
 
 # Creat GLM script per input_dict keys
