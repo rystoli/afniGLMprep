@@ -46,8 +46,7 @@ python afniGLMprep_run.py csvInput prep1D prepGLM
 &nbsp;&nbsp;&nbsp;&nbsp;• 'eventTSV_path': path to events.tsv files<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;• 'mask_path': path to mask within which data will be analyzed for a given run<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;• 'confoundsTSV_path' (optional): path to confounds.tsv files<br/>
-*note: currently requires a mask, though this may be the same for all subjects if you want*
-
+*note: currently requires a mask, though this may be the same for all subjects if you want.* <br/>
 *note: many strings (paths,input files,strings in TSVs etc) are used to determine paths for afniGLMprep to function, so make sure to use plain-text, and avoid characters that my confuse filepaths, such as slashes (/,\), special characters etc.*
 
 ## Execution
