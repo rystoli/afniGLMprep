@@ -1,5 +1,5 @@
 # afniGLMprep
-afniGLMprep is python code which prepares and runs GLMs on neuroimaging data stored in the BIDS format (http://bids.neuroimaging.io/). This is done via AFNI's 3dDeconvolve function. 
+afniGLMprep is python code which prepares and runs GLMs on neuroimaging data stored in the [BIDS format](http://bids.neuroimaging.io/). This is done via AFNI's 3dDeconvolve function. *For the record, it works great with [fmriprep](https://github.com/poldracklab/fmriprep)!*
 
 ## Purpose
 Standardized structures for neuroimaging data have allowed the development of tools which perform various functions and analyses on data with relative automaticity and ease. The [BIDS (Brain Imaging Data Structure)](http://bids.neuroimaging.io/) has many tools for preprocessing and analysis of data (e.g., [BIDS apps](http://bids-apps.neuroimaging.io/)). Here is an initial set of functions to run first-level analyses via GLM on fMRI data. Specifically, this code automates generation of AFNI files and scripts necessary to estimate whole-brain response patterns to experimental conditions. 
@@ -14,11 +14,13 @@ python afniGLMprep_run.py csvInput prep1D prepGLM
 ## Specific Functions 
 - Generates AFNI 3dDeconvolve scripts per functional dataset specified
 - Generates AFNI 1D stimulus onset timing files for GLM design matrices (input for 3dDeconvolve)
+- Generates AFNI 1D nuisance regressors of no interest (motion, global signal, white matter)
 
 ## Requirements
 - Uses several scientific python libraries (pandas, numpy)
 - Data must be stored in the BIDS format. All functions require very specific directory structures and file names.
 - Stimulus onset timing files (1Ds) are made from BIDS formatted \*events.tsv files
+- If you intend to use them, nuisance regressors (e.g., motion parameters) must be in \*confounds.tsv files (see below)
 
 ## Content
 - afniGLMprep_run.py: command-line script to execute functions (see instructions below)
@@ -31,7 +33,8 @@ python afniGLMprep_run.py csvInput prep1D prepGLM
 - Experimental conditions to be estimated (design matrix columns) come from events.tsv files. One is required per functional input dataset you wish to execute the GLM on (so if you have a constant design, simply duplicate the files and name them appropriately in BIDS format).
 -- e.g., '/BIDS_folder/sub-01/func/sub-01_task-taskname_run-01_events.tsv'
 - If you would like to include nuisance regressors (motion, etc.) in your model, a confounds.tsv file must also be specified per functional input dataset. This tsv file must have a column for each nuisance regressor and the number of rows in each column must be equal to the total number of functional volumes in the corresponding functional input dataset. One nuisance regressor (modeled using the -stim_file and -stim_base options in 3dDeconvolve) will be added to the model for each column in the tsv. The naming convention must conform to the general BIDS format, e.g.:
--- '/BIDS_folder/sub-01/func/sub-01_task-taskname_run-01_bold_confounds.tsv'
+-- '/BIDS_folder/sub-01/func/sub-01_task-taskname_run-01_bold_confounds.tsv' ([fmriprep](https://github.com/poldracklab/fmriprep) produces these automatically in this format)
+-- *Currently only work with csvInput option*
 - Input datasets must be named in BIDS format, and placed in directories with subject functional data. If using preprocessed data (obv), it is recommended you use the same filename as the raw data in the /func/ directory, with a suffix 
 -- e.g., 'preprocfinal', e.g., '/BIDS_folder/sub-01/func/sub-01_task-taskname_run-01_bold_preprocfinal.nii.gz'
 *note, it is recommended user-specified strings in filenames (e.g., task names, suffixes) do not overlap with strings in filenames as part of the BIDS format (e.g., 'events', 'run', 'bold'), as BIDS filenames are split to navigate and produce files*
