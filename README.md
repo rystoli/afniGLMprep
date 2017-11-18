@@ -71,7 +71,6 @@ python afniGLMprep_run.py csvInput prep1D prepGLM
 
 Feel free to try it out on public [BIDS example datasets](https://github.com/INCF/BIDS-examples)!
 ## To-do / Limitations
-* Create method and option to include motion estimates in design matrix
 * Create fully flexible 3dDeconvolve script generation, allowing user to add additional parameters
 * Create additional forms of 3dDeconvolve, eg, if user prefers more advanced models, or estimates per onset/trial
 * Allow option to begin analyses
