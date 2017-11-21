@@ -1,4 +1,4 @@
-# afniGLMprep version: 11/16/17
+# afniGLMprep version: 11/21/17
 import pandas as pd
 import numpy as np
 import glob
@@ -246,6 +246,10 @@ def write_GLM_script( BIDS_path, func_input_path, eventTSV_path, mask_path, afni
                 input1D_confound.append(input1D)
             else:
                 input1D_model.append(input1D)
+        
+        #for convenience: alphabetize stim labels so they will be the same for each subject and run
+        input1D_confound = sorted(input1D_confound)
+        input1D_model = sorted(input1D_model)
 
         #separately make -stim_times and -stim_file calls for each list
         for i,input1Dmodel in enumerate(input1D_model):
@@ -258,6 +262,7 @@ def write_GLM_script( BIDS_path, func_input_path, eventTSV_path, mask_path, afni
 
     else:
         stim_times = []
+        input_1Ds = sorted(input_1Ds)
         for i,input1D in enumerate(input_1Ds):
             trial_type,i = input1D.split('events_')[-1].split('.')[-2], i + 1 
             stim_times.append( "-stim_times %s %s '%s' -stim_label %s %s -iresp %s %s" % (i,input1D,afniGLM_params.hrf_func,i,trial_type,i,'iresp_%s_%s.nii.gz' % (input_prefix,trial_type)) )
