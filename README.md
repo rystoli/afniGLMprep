@@ -25,7 +25,7 @@ pip install afniGLMprep
 ```
 import afniglmprep as agp
 agp.apf   # apf = afniglmprep functions
-afgp.p    # p   = afniglmprep params
+agp.p    # p   = afniglmprep params
 ```
 
 ## Specific Functions 
