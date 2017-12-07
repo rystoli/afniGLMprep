@@ -6,8 +6,8 @@ sys.dont_write_bytecode = True
 # Set paths
 
 # set path to BIDS study top directory
+### tip: don't use variables to refer to path components, e.g., tilda (~) to refer to home path
 BIDS_path = ''
-# if having afniGLMprep automatically generate the input_dict (instead of doing so below), set suffix of functional input files in addition to standards BIDS file name _bold, e.g., 'preprocfinal' if preprocessed input is named, like:
 
 #######################################################
 # Paths for input specification
@@ -23,6 +23,9 @@ input_suffix = 'preprocfinal'
 # set path to mask applied to all subjects if having afniGLMprep automatically generate the input_dict (instead of doing so below)
 mask_path = 'union_brain_mask.nii.gz' 
 
+##### NUISANCE REGRESSORS (MOTION ETC.)
+# If intending to use nuisance regressor option with csvInput (see README.md), specify here:
+regressOut = ''
 
 #######################################################
 # Set GLM Parameters - see 3dDeconvolve doc: https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dDeconvolve.html
