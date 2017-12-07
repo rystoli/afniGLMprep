@@ -93,3 +93,4 @@ Feel free to try it out on public [BIDS example datasets](https://github.com/INC
 * Allow option to begin analyses
 * Print out more detailed summary of what is used: params + stim_times conditions
 * Provide more debugging feedback 
+* Full documentation of functions
