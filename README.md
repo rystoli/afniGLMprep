@@ -46,7 +46,7 @@ agp.p    # p   = afniglmprep params
 * afniGLMprep_input.csv: optional file to specify input to afniGLMprep
 
 ## Preparation
-* Assumes all files to be operated on are under the 'BIDS_path' directory, that is, the BIDS organized dataset top directory (containing all subject data etc.)
+* Assumes all files to be operated on are under the 'BIDS_path' directory, that is, the BIDS organized dataset top directory (containing all subject data etc.; protip - use explicit filepaths, not environment variables, e.g., tild ~)
 * Experimental conditions to be estimated (design matrix columns) come from events.tsv files. One is required per functional input dataset you wish to execute the GLM on (so if you have a constant design, simply duplicate the files and name them appropriately in BIDS format).
     - e.g., '/BIDS_folder/sub-01/func/sub-01_task-taskname_run-01_events.tsv'
 * If you would like to include nuisance regressors (motion, etc.) in your model, a confounds.tsv file must also be specified per functional input dataset. This tsv file must have a column for each nuisance regressor and the number of rows in each column must be equal to the total number of functional volumes in the corresponding functional input dataset. One nuisance regressor (modeled using the -stim_file and -stim_base options in 3dDeconvolve) will be added to the model for each column in the tsv. The naming convention must conform to the general BIDS format, e.g.:
@@ -75,9 +75,7 @@ Execution is easily done from the command-line. After parameters are set in afni
 * 'prepGLM': prep AFNI 3dDeconvolve scripts<br/><br/>
 Example calls:
 ```
-python afniGLMprep_run.py prep1D
-python afniGLMprep_run.py prepGLM
-python afniGLMprep_run.py prep1D prepGLM 
+python afniGLMprep_run.py prepInput prep1D
 python afniGLMprep_run.py prepInput prep1D prepGLM 
 python afniGLMprep_run.py csvInput prep1D prepGLM 
 ```
@@ -86,7 +84,8 @@ python afniGLMprep_run.py csvInput prep1D prepGLM
 * Stimulus onset timing files (1Ds) are placed in a directory 'GLM_1Ds' in the BIDS home folder you specified in afniGLMprep_params.py
 * AFNI 3dDeconvolve scripts are placed in the BIDS home folder specified in afniGLMprep_params.py
 
-Feel free to try it out on public [BIDS example datasets](https://github.com/INCF/BIDS-examples)!
+Feel free to try it out on public [BIDS example datasets](https://github.com/INCF/BIDS-examples)! Just remember to format accordingly above (e.g., replace any inappropriate characters 
+
 ## To-do / Limitations
 * Create fully flexible 3dDeconvolve script generation, allowing user to add additional parameters
 * Create additional forms of 3dDeconvolve, eg, if user prefers more advanced models, or estimates per onset/trial
