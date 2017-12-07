@@ -11,6 +11,17 @@ It reduces this large effort to a single line of code:
 python afniGLMprep_run.py csvInput prep1D prepGLM
 ```
 
+## Installation
+1. Download these files (via git clone or direct download links):
+```
+git clone https://github.com/rystoli/afniGLMprep.git
+```
+2. afniGLMprep is best run via command line, see documentation below.
+3. However, if you wish to use individual functions etc., package installation via pip is available by specifying the package directory filepath:
+```
+pip install afniGLMprep
+```
+
 ## Specific Functions 
 * Generates AFNI 3dDeconvolve scripts per functional dataset specified
 * Generates AFNI 1D stimulus onset timing files for GLM design matrices (input for 3dDeconvolve)
