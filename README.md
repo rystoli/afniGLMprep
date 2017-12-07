@@ -24,8 +24,8 @@ pip install afniGLMprep
 4. Then import, and navigate functions and parameters via:
 ```
 import afniglmprep as agp
-agp.apf   # apf = afniglmprep functions
-agp.p    # p   = afniglmprep params
+print( dir(agp.apf) )   # apf = afniglmprep functions
+print( dir(agp.p)   )   # p   = afniglmprep params
 ```
 
 ## Specific Functions 
