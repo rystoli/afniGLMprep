@@ -1,5 +1,6 @@
 # afniGLMprep version: 11/13/17
-import os
+import os, sys
+sys.dont_write_bytecode = True
 
 #######################################################
 # Set paths

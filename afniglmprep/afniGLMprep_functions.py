@@ -1,8 +1,8 @@
 # afniGLMprep version: 11/21/17
 import pandas as pd
 import numpy as np
-import glob
-import os
+import glob, os, sys
+sys.dont_write_bytecode = True
 
 #######################################################
 # Prepare input

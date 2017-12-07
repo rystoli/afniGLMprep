@@ -20,6 +20,11 @@ git clone https://github.com/rystoli/afniGLMprep.git
 3. However, if you wish to use individual functions etc., package installation via pip is available by specifying the package directory filepath:
 ```
 pip install afniGLMprep
+4. Then import, and navigate functions and parameters via:
+```
+import afniglmprep as agp
+agp.apf   # apf = afniglmprep functions
+afgp.p    # p   = afniglmprep params
 ```
 
 ## Specific Functions 
