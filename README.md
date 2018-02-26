@@ -34,6 +34,7 @@ print( dir(agp.p)   )   # p   = afniglmprep params
 * Generates AFNI 1D nuisance regressors of no interest (motion, global signal, white matter)
 
 ## Requirements
+* You need to have write permissions for your BIDS directory for everything to work properly
 * Uses several scientific python libraries (pandas, numpy)
 * Data must be stored in the BIDS format. All functions require very specific directory structures and file names.
 * Stimulus onset timing files (1Ds) are made from BIDS formatted \*events.tsv files
