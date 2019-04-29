@@ -290,6 +290,10 @@ def write_GLM_script(BIDS_path, func_input_path, eventTSV_path, mask_path, afniG
 
     # combine params and stim_times for final script
     outpath = os.path.join(BIDS_path, 'GLM_1Ds')
+    
+    if  os.path.isdir(outpath) == False:
+        os.system('mkdir '+outpath)
+        
     if 'stim_files' in locals():
         glm_script = '3dDeconvolve ' + params + ' ' + ' '.join(stim_times) + ' ' + ' '.join(stim_files)
     else:
