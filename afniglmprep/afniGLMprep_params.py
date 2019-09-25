@@ -16,16 +16,16 @@ BIDS_path = ''
 # If intending to use 'csvInput', see doc, and specify input csv path:
 inputcsv_path = 'afniGLMprep_input.csv'
 
+##### NUISANCE REGRESSORS (MOTION ETC.)
+# If intending to use nuisance regressor option with csvInput (see README.md), set regressOut to 1 (True):
+regressOut = ''
+
 ##### OPTION 2
 # If intending to use 'prepInput' automatic input generation, please see option doc, and specify:
 # sub-01_task-taskname_run-01_bold_preprocfinal.nii.gz
 input_suffix = 'preprocfinal' 
 # set path to mask applied to all subjects if having afniGLMprep automatically generate the input_dict (instead of doing so below)
 mask_path = 'union_brain_mask.nii.gz' 
-
-##### NUISANCE REGRESSORS (MOTION ETC.)
-# If intending to use nuisance regressor option with csvInput (see README.md), specify here:
-regressOut = ''
 
 #######################################################
 # Set GLM Parameters - see 3dDeconvolve doc: https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dDeconvolve.html
