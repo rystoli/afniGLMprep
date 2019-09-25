@@ -254,7 +254,7 @@ def write_GLM_script(BIDS_path, func_input_path, eventTSV_path, mask_path, afniG
         input1D_confound = []
         for input1D in input_1Ds:
             elements = input1D.split('_')
-            if 'confounds' in elements:
+            if 'desc-confounds' in elements:
                 input1D_confound.append(input1D)
             else:
                 input1D_model.append(input1D)
