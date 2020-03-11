@@ -1,3 +1,6 @@
+# note: 
+need to implement argument for event length
+
 # afniGLMprep
 afniGLMprep is python code which prepares and runs GLMs on neuroimaging data stored in the [BIDS format](http://bids.neuroimaging.io/). This is done via AFNI's 3dDeconvolve function. *For the record, it works great with [fmriprep](https://github.com/poldracklab/fmriprep)!*
 
